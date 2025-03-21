@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: jobrad
+Version: 0.1.0
+Summary: Customer Support Chat.
+Author-email: Michael Krupp <mail@michaelkrupp.de>
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: dotenv>=0.9
+Requires-Dist: pydantic>=2.10
+Requires-Dist: pydantic-settings>=2.8
+Requires-Dist: structlog>=25.2
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: fastapi>=0.115
+Requires-Dist: websockets>=15.0
+Requires-Dist: jinja2>=3.1
+Requires-Dist: uvicorn>=0.34
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-asyncio; extra == "dev"
+Requires-Dist: httpx; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: isort; extra == "dev"

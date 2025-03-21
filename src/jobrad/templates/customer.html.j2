@@ -1,0 +1,30 @@
+{% extends "_layout.html.j2" %}
+
+{% block title %}Chat {{ chat_room.id }}{% endblock %}
+
+{% block content %}
+<ul id="chat-view" class="border rounded p-3 mb-3 d-flex flex-column">
+    <!-- Chat messages will be displayed here -->
+</ul>
+<div id="chat-input" class="input-group">
+    <input type="text" id="chat-input-text" class="form-control" placeholder="Type your message here..." style="flex: 1 1 auto;" />
+    <div class="input-group-append">
+        <button id="chat-input-send" class="btn btn-primary">Send</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/chat.js"></script>
+<script>
+    const chatView = document.getElementById('chat-view');
+    const sendButton = document.getElementById('chat-input-send');
+    const chatInputText = document.getElementById('chat-input-text');
+
+    let msgws = connectMessageWebSocket('chat', '{{ chat_room.id }}', chatView);
+    
+    sendButton.addEventListener('click', function() {
+        sendMessage(msgws, chatInputText);
+    });
+</script>
+{% endblock %}

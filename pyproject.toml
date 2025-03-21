@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jobrad"
+version = "0.1.0"
+description = "Customer Support Chat."
+authors = [{ name = "Michael Krupp", email = "mail@michaelkrupp.de" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dotenv>=0.9",
+    "pydantic>=2.10",
+    "pydantic-settings>=2.8",
+    "structlog>=25.2",
+    "pyyaml>=6.0",
+    "fastapi>=0.115",
+    "websockets>=15.0",
+    "jinja2>=3.1",
+    "uvicorn>=0.34",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio", "httpx", "black", "isort"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.yaml"]
+
+[tool.pytest.ini_options]
+addopts = "-v"
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "module"
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["jobrad"]
+src_paths = ["src"]

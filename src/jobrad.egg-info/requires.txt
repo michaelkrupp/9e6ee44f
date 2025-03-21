@@ -1,0 +1,16 @@
+dotenv>=0.9
+pydantic>=2.10
+pydantic-settings>=2.8
+structlog>=25.2
+pyyaml>=6.0
+fastapi>=0.115
+websockets>=15.0
+jinja2>=3.1
+uvicorn>=0.34
+
+[dev]
+pytest
+pytest-asyncio
+httpx
+black
+isort

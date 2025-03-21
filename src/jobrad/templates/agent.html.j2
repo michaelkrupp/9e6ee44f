@@ -1,0 +1,52 @@
+{% extends "_layout.html.j2" %}
+
+{% block title %}Chat Rooms{% endblock %}
+
+{% block content %}
+<div class="d-flex">
+    <div class="chat-list border rounded p-3">
+        <ul id="chat-list" class="list-unstyled">
+            <!-- Chat list items will be displayed here -->
+        </ul>
+    </div>
+    <div class="d-flex flex-column flex-grow-1">
+        <ul id="chat-view" class="border rounded p-3 mb-3 d-flex flex-column">
+            <!-- Chat messages will be displayed here -->
+        </ul>
+        <div id="chat-input" class="input-group">
+            <input type="text" id="chat-input-text" class="form-control" placeholder="Type your message here..." style="flex: 1 1 auto;" />
+            <div class="input-group-append">
+                <button id="chat-input-send" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/chat.js"></script>
+<script>
+    let msgws;
+
+    const chatView = document.getElementById('chat-view');
+    const sendButton = document.getElementById('chat-input-send');
+    const chatInputText = document.getElementById('chat-input-text');
+
+    function connectToChat(chatId) {
+        if (msgws) {
+            msgws.close();
+        }
+
+        chatView.innerHTML = '';
+
+        msgws = connectMessageWebSocket('agent/chat', chatId, chatView);
+    }
+
+    sendButton.addEventListener('click', function() {
+        sendMessage(msgws, chatInputText);
+    });
+
+    const chatList = document.getElementById('chat-list');
+    connectNotificationWebSocket('agent/notifications', chatList, connectToChat);
+</script>
+{% endblock %}
